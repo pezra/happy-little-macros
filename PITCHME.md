@@ -52,18 +52,22 @@ end
 
 ---
 
-What does `quote` do?
+How does that work?
 
 ---
 
 ```elixir
-iex> quote do: 1 + 2
-{:+, [context: Elixir, import: Kernel], [1, 2]}
+iex> a = 3
+...> quote do: unquote(a) + 1
+{:+, [context: Elixir, import: Kernel], [3, 2]}
 ```
+
+@[1-3](`quote` parses the code and returns its AST)
+@[1-3](`unquote` returns the AST for a value outside the `quote` block)
 
 ---
 
-Back to our example
+Back to our benchmarking example
 
 ---
 
@@ -108,5 +112,7 @@ end
 @[7-9](after_ms = :erlang.monotonic_time(:millisecond))
 @[10-14](elapsed = after_ms - before_ms)
 @[15-25](Logger.info(unquote(msg) <> " (#{elapsed}ms)"))
+
+---
 
 
