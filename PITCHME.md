@@ -64,6 +64,12 @@ iex> quote do: 1 + 2
 ---
 
 ```elixir
+benchmark("Doing important stuff") do
+  :timer.sleep(:rand.uniform(100))
+end
+```
+
+```elixir
 {:__block__, [],
  [{:=, [],
    [{:before_ms, [], Benchmarking},
@@ -88,7 +94,9 @@ iex> quote do: 1 + 2
 ```
 
 @[2-4](before_ms = :erlang.monotonic_time(:millisecond))
-@[5-6](:timer.sleep(:rand.uniform(100)))
+@[5-6](... do
+  :timer.sleep(:rand.uniform(100))
+end)
 @[7-9](after_ms = :erlang.monotonic_time(:millisecond))
 @[10-13](elapsed = after_ms - before_ms)
 @[14-21](Logger.info(unquote(msg) <> " (#{elapsed}ms)"))
