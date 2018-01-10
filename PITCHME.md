@@ -6,10 +6,6 @@ pezra@barelyenough.org
 
 ---
 
-Boilerplate sucks
-
----
-
 ```elixir
 before_ms = :erlang.monotonic_time(:millisecond)
 :timer.sleep(:rand.uniform(100))
@@ -18,7 +14,12 @@ elapsed = after_ms - before_ms
 Logger.info("Doing important stuff (#{elapsed}ms)")
 ```
 
-14:25:06.869 [info]  Doing important stuff (46ms)
+@[1-5]
+@[2]
+@[1, 3-5](Boilerplate sucks!)
+
+> 14:25:06.869 [info]  Doing important stuff (46ms)
+
 
 ---
 
