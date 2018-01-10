@@ -63,11 +63,9 @@ iex> quote do: 1 + 2
 
 ---
 
-```elixir
-benchmark("Doing important stuff") do
-  :timer.sleep(:rand.uniform(100))
-end
-```
+> benchmark("Doing important stuff") do
+>  :timer.sleep(:rand.uniform(100))
+> end
 
 ```elixir
 {:__block__, [],
