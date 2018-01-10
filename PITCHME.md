@@ -88,21 +88,25 @@ end
   {:=, [],
    [{:elapsed, [], Benchmarking},
     {:-, [context: Benchmarking, import: Kernel],
-     [{:after_ms, [], Benchmarking}, {:before_ms, [], Benchmarking}]}]},
-  {{:., [], [{:__aliases__, [alias: false], [:Logger]}, :info]}, [],
+     [{:after_ms, [], Benchmarking},
+      {:before_ms, [], Benchmarking}]}]},
+  {{:., [],
+    [{:__aliases__, [alias: false], [:Logger]}, :info]},
+   [],
    [{:<>, [context: Benchmarking, import: Kernel],
      ["Doing important stuff",
       {:<<>>, [],
        [" (",
         {:::, [],
-         [{{:., [], [Kernel, :to_string]}, [], [{:elapsed, [], Benchmarking}]},
+         [{{:., [], [Kernel, :to_string]}, [],
+           [{:elapsed, [], Benchmarking}]},
           {:binary, [], Benchmarking}]}, "ms)"]}]}]}]}
 ```
 
 @[2-4](before_ms = :erlang.monotonic_time(:millisecond))
 @[5-6](... do :timer.sleep(:rand.uniform(100)) end)
 @[7-9](after_ms = :erlang.monotonic_time(:millisecond))
-@[10-13](elapsed = after_ms - before_ms)
-@[14-21](Logger.info(unquote(msg) <> " (#{elapsed}ms)"))
+@[10-14](elapsed = after_ms - before_ms)
+@[15-25](Logger.info(unquote(msg) <> " (#{elapsed}ms)"))
 
 
