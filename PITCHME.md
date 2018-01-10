@@ -14,12 +14,23 @@ elapsed = after_ms - before_ms
 Logger.info("Doing important stuff (#{elapsed}ms)")
 ```
 
-@[1-5]
+> 14:25:06.869 [info]  Doing important stuff (46ms)
+
+---
+
+```elixir
+before_ms = :erlang.monotonic_time(:millisecond)
+:timer.sleep(:rand.uniform(100))
+after_ms = :erlang.monotonic_time(:millisecond)
+elapsed = after_ms - before_ms
+Logger.info("Doing important stuff (#{elapsed}ms)")
+```
+
+
 @[2]
 @[1, 3-5](Boilerplate sucks!)
 
-> 14:25:06.869 [info]  Doing important stuff (46ms)
-
+Note: closer look at the code to see that boiler plate sucks
 
 ---
 
