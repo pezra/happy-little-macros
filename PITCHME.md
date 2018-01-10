@@ -16,7 +16,7 @@ Logger.info("Doing important stuff (#{elapsed}ms)")
 @[2]
 @[1, 3-5](Boilerplate sucks!)
 
-> 14:25:06.869 [info]  Doing important stuff (46ms)
+14:25:06.869 [info]  Doing important stuff (46ms)
 
 ---
 
@@ -45,6 +45,10 @@ defmacro benchmark(msg, blk) do
   end
 end
 ```
+
+@[3, 5-7]
+@[4]
+@[2, 8]
 
 ---
 
@@ -79,76 +83,12 @@ iex> quote do: 1 + 2
           {:binary, [], Benchmarking}]}, "ms)"]}]}]}]}
 ```
 
----
-
-```elixir
-{:=, [],
-  [{:before_ms, [], Benchmarking},
-   {{:., [], [:erlang, :monotonic_time]}, [], [:millisecond]}]}
-⋮
-```
-
-```elixir
-before_ms = :erlang.monotonic_time(:millisecond)
-```
-
----
-
-```elixir
-⋮
-[do: {{:., [line: 34], [:timer, :sleep]}, [line: 34],
-  [{{:., [line: 34], [:rand, :uniform]}, [line: 34], 'd'}]}],
-⋮
-```
-
-```elixir
-... do
+@[2-4](`before_ms = :erlang.monotonic_time(:millisecond)`)
+@[5-6](`... do
   :timer.sleep(:rand.uniform(100))
-end
-```
-
----
-
-```elixir
-⋮
-{:=, [],
-  [{:after_ms, [], Benchmarking},
-   {{:., [], [:erlang, :monotonic_time]}, [], [:millisecond]}]},
-⋮
-```
-```elixir
-after_ms = :erlang.monotonic_time(:millisecond)
-```
-
----
-
-```elixir
-⋮
-{:=, [],
-  [{:elapsed, [], Benchmarking},
-   {:-, [context: Benchmarking, import: Kernel],
-    [{:after_ms, [], Benchmarking}, {:before_ms, [], Benchmarking}]}]},
-⋮
-```
-```elixir
-elapsed = after_ms - before_ms
-```
-
----
-
-```elixir
-⋮
-{{:., [], [{:__aliases__, [alias: false], [:Logger]}, :info]}, [],
-  [{:<>, [context: Benchmarking, import: Kernel],
-    ["Doing important stuff",
-     {:<<>>, [],
-      [" (",
-       {:::, [],
-        [{{:., [], [Kernel, :to_string]}, [], [{:elapsed, [], Benchmarking}]},
-         {:binary, [], Benchmarking}]}, "ms)"]}]}]}]}
-```
-```elixir
-Logger.info(unquote(msg) <> " (#{elapsed}ms)")
-```
+`)
+@[7-9](`after_ms = :erlang.monotonic_time(:millisecond)`)
+@[10-13](`elapsed = after_ms - before_ms`)
+@[14-21](`Logger.info(unquote(msg) <> " (#{elapsed}ms)")`)
 
 
