@@ -73,6 +73,8 @@ benchmark("Doing important stuff") do
 end
 ```
 
+---
+
 ```elixir
 {:__block__, [],
  [{:=, [],
