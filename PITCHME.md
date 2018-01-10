@@ -52,6 +52,10 @@ end
 
 ---
 
+What does `quote` do?
+
+---
+
 ```elixir
 iex> quote do: 1 + 2
 {:+, [context: Elixir, import: Kernel], [1, 2]}
@@ -83,12 +87,10 @@ iex> quote do: 1 + 2
           {:binary, [], Benchmarking}]}, "ms)"]}]}]}]}
 ```
 
-@[2-4](`before_ms = :erlang.monotonic_time(:millisecond)`)
-@[5-6](`... do
-  :timer.sleep(:rand.uniform(100))
-`)
-@[7-9](`after_ms = :erlang.monotonic_time(:millisecond)`)
-@[10-13](`elapsed = after_ms - before_ms`)
-@[14-21](`Logger.info(unquote(msg) <> " (#{elapsed}ms)")`)
+@[2-4](before_ms = :erlang.monotonic_time(:millisecond))
+@[5-6](:timer.sleep(:rand.uniform(100)))
+@[7-9](after_ms = :erlang.monotonic_time(:millisecond))
+@[10-13](elapsed = after_ms - before_ms)
+@[14-21](Logger.info(unquote(msg) <> " (#{elapsed}ms)"))
 
 
