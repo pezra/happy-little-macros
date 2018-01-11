@@ -10,19 +10,24 @@ anyone can create beautifully clear code
 
 ---
 
+an example: benchmarking
+
+---
+
 ```elixir
 before_ms = :erlang.monotonic_time(:millisecond)
 :timer.sleep(:rand.uniform(100))
 after_ms = :erlang.monotonic_time(:millisecond)
 elapsed = after_ms - before_ms
-Logger.info("doing important stuff (#{elapsed}ms)")
+Logger.info("important stuff (#{elapsed}ms)")
 ```
 @[2]
 @[1, 3-5](boilerplate sucks!)
 
-14:25:06.869 [info]  doing important stuff (46ms)
+14:25:06.869 [info] important stuff (46ms)
 
-Notes: The boilerplate hides the intent of this block of code
+Note:
+The boilerplate hides the intent of this block of code
 ---
 
 let's have a happy little macro that makes our intent clear
@@ -30,14 +35,15 @@ let's have a happy little macro that makes our intent clear
 ---
 
 ```elixir
-benchmark("doing important stuff") do
+benchmark("important stuff") do
   :timer.sleep(:rand.uniform(100))
 end
 ```
 
-14:25:06.869 [info]  doing important stuff (46ms)
+14:25:06.869 [info] important stuff (46ms)
 
-Notes: The intent of this version is clear.
+Note:
+The intent of this version is clear.
 ---
 
 ```elixir
@@ -55,19 +61,22 @@ end
 @[3, 5-7] the boilerplate from the previous example
 @[4] execute it do block passed in
 
-Notes: In this context all that time and logging code is the important part, *not* boilerplate.
+Note:
+In this context all that time and logging code is the important part, *not* boilerplate.
 
 ---
 
 how does that work?
 
-Notes: Let's start by exploring some toy examples.
+Note:
+Let's start by exploring some toy examples.
 
 ---
 
 AST = abstract syntax tree
 
-Notes: define the word i'm going to be using a lot
+Note:
+define the word i'm going to be using a lot
 
 ---
 
@@ -85,7 +94,8 @@ iex>  quote do: 42
 42
 ```
 
-Notes: `quote` returns the AST representation of the code you pass it. For literals it's just the literal.
+Note:
+`quote` returns the AST representation of the code you pass it. For literals it's just the literal.
 
 ---
 
@@ -94,7 +104,8 @@ iex>  quote do: 3 + 1
 {:+, [context: Elixir, import: Kernel], [3, 2]}
 ```
 
-Notes: `quote` returns the AST representation of the code you pass it. For operators it gets a little more complicated.
+Note:
+`quote` returns the AST representation of the code you pass it. For operators it gets a little more complicated.
 
 ---
 
@@ -104,7 +115,8 @@ iex> x = 3
 3
 ```
 
-Note: `unquote` returns the AST of a value outside the quote.
+Note:
+`unquote` returns the AST of a value outside the quote.
 
 ---
 
