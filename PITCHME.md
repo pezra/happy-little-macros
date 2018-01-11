@@ -1,8 +1,12 @@
 
 # Happy little macros
 
-Peter Williams  
+Peter Williams
 pezra@barelyenough.org
+
+---
+
+anyone can create beautifully clear code
 
 ---
 
@@ -11,27 +15,29 @@ before_ms = :erlang.monotonic_time(:millisecond)
 :timer.sleep(:rand.uniform(100))
 after_ms = :erlang.monotonic_time(:millisecond)
 elapsed = after_ms - before_ms
-Logger.info("Doing important stuff (#{elapsed}ms)")
+Logger.info("doing important stuff (#{elapsed}ms)")
 ```
 @[2]
-@[1, 3-5](Boilerplate sucks!)
+@[1, 3-5](boilerplate sucks!)
 
-14:25:06.869 [info]  Doing important stuff (46ms)
+14:25:06.869 [info]  doing important stuff (46ms)
 
+Notes: The boilerplate hides the intent of this block of code
 ---
 
-Let's have a happy little macro that makes our intent clear
+let's have a happy little macro that makes our intent clear
 
 ---
 
 ```elixir
-benchmark("Doing important stuff") do
+benchmark("doing important stuff") do
   :timer.sleep(:rand.uniform(100))
 end
 ```
 
-14:25:06.869 [info]  Doing important stuff (46ms)
+14:25:06.869 [info]  doing important stuff (46ms)
 
+Notes: The intent of this version is clear.
 ---
 
 ```elixir
@@ -46,26 +52,75 @@ defmacro benchmark(msg, blk) do
 end
 ```
 
-@[3, 5-7]
-@[4]
-@[2, 8]
+@[3, 5-7] the boilerplate from the previous example
+@[4] execute it do block passed in
+
+Notes: In this context all that time and logging code is the important part, *not* boilerplate.
 
 ---
 
-How does that work?
+how does that work?
+
+Notes: Let's start by exploring some toy examples.
+
+---
+
+AST = abstract syntax tree
+
+Notes: define the word i'm going to be using a lot
+
+---
+
+![simple AST](./simple-ast.png)
 
 ---
 
 ```elixir
-iex> a = 3
-...> quote do: unquote(a) + 1
+iex>  quote do: "hello"
+"hello"
+```
+
+```elixir
+iex>  quote do: 42
+42
+```
+
+Notes: `quote` returns the AST representation of the code you pass it. For literals it's just the literal.
+
+---
+
+```elixir
+iex>  quote do: 3 + 1
 {:+, [context: Elixir, import: Kernel], [3, 2]}
 ```
 
-@[1-3](`quote` parses the code and returns its AST)
-@[1-3](`unquote` returns the AST for a value outside the `quote` block)
+Notes: `quote` returns the AST representation of the code you pass it. For operators it gets a little more complicated.
 
 ---
+
+```elixir
+iex> x = 3
+...> quote do: unquote(x)
+3
+```
+
+Note: `unquote` returns the AST of a value outside the quote.
+
+---
+
+
+```elixir
+iex> a = 3
+...> quote do: unquote(a + 2)
+5
+```
+
+Note: To be more precise. `unquote` evaluates the expressions you pass in the context outside the `quote` block and returns the AST representation of that expression's return value.
+
+---
+
+
+----
 
 Back to our benchmarking example
 
