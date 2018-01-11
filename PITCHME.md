@@ -21,8 +21,9 @@ after_ms = :erlang.monotonic_time(:millisecond)
 elapsed = after_ms - before_ms
 Logger.info("important stuff (#{elapsed}ms)")
 ```
-@[2]
-@[1, 3-5](boilerplate sucks!)
+@[2](the actual functionality)
+@[1, 3-5](boilerplate)
+@[1-5]
 
 14:25:06.869 [info] important stuff (46ms)
 
