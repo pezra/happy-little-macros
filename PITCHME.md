@@ -31,7 +31,7 @@ Note:
 The boilerplate hides the intent of this block of code
 ---
 
-let's have a happy little macro that makes our intent clear
+let's have a happy little macro to clarify our intent
 
 ---
 
@@ -93,6 +93,8 @@ read file |> parse |> convert to byte code
 
 macros are functions that alter the AST during compile
 
+---
+
 Compile pipeline
 
 read file |> parse |> expand macros |> convert to byte code
@@ -100,6 +102,20 @@ read file |> parse |> expand macros |> convert to byte code
 Note:
 
 Basically a hook provided by the compiler.
+
+---
+
+the macro contract: the compiler passes the original AST; the macro returns the AST to use in it's place
+
+Note:
+Go wild! All of Elixir is available in macros.
+
+---
+
+tools to ease AST creation
+
+- `quote`
+- `unquote`
 
 ---
 
@@ -124,7 +140,7 @@ iex>  quote do: 3 + 1
 ```
 
 Note:
-`quote` returns the AST representation of the code you pass it. For operators it gets a little more complicated.
+`quote` returns the AST representation of the code you pass it. For expression it gets a little more complicated.
 
 ---
 
