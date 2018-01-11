@@ -76,6 +76,8 @@ First a little theory then we'll explore some toy examples.
 
 AST = abstract syntax tree
 
+`round(40.3 + 1.7)`
+
 ![simple AST](./simple-ast.png)
 
 Note:
@@ -83,12 +85,21 @@ This is what parsers build.
 
 ---
 
-macros are functions that return ASTs
+Compile pipeline
 
-elixir code |> parse |> expand macros |> convert to byte code
+read file |> parse |> convert to byte code
+
+---
+
+macros are functions that alter the AST during compile
+
+Compile pipeline
+
+read file |> parse |> expand macros |> convert to byte code
 
 Note:
-The compiler parses your elixir files. It then replaces any macro call in those file
+
+Basically a hook provided by the compiler.
 
 ---
 
