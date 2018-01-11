@@ -70,18 +70,25 @@ In this context all that time and logging code is the important part, *not* boil
 how does that work?
 
 Note:
-Let's start by exploring some toy examples.
+First a little theory then we'll explore some toy examples.
 
 ---
 
 AST = abstract syntax tree
 
+![simple AST](./simple-ast.png)
+
 Note:
-define the word i'm going to be using a lot
+This is what parsers build.
 
 ---
 
-![simple AST](./simple-ast.png)
+macros are functions that return ASTs
+
+elixir code |> parse |> expand macros |> convert to byte code
+
+Note:
+The compiler parses your elixir files. It then replaces any macro call in those file
 
 ---
 
@@ -130,9 +137,6 @@ iex> a = 3
 
 Note: To be more precise. `unquote` evaluates the expressions you pass in the context outside the `quote` block and returns the AST representation of that expression's return value.
 
----
-
-
 ----
 
 Back to our benchmarking example
@@ -142,6 +146,18 @@ Back to our benchmarking example
 ```elixir
 benchmark("Doing important stuff") do
   :timer.sleep(:rand.uniform(100))
+end
+```
+
+```elixir
+defmacro benchmark(msg, blk) do
+  quote do
+    before_ms = :erlang.monotonic_time(:millisecond)
+    unquote(blk)
+    after_ms = :erlang.monotonic_time(:millisecond)
+    elapsed = after_ms - before_ms
+    Logger.info(unquote(msg) <> " (#{elapsed}ms)")
+  end
 end
 ```
 
