@@ -73,7 +73,7 @@ how does that work?
 
 ---
 
-First a little theory
+first a little theory
 
 Note:
 First a little theory then we'll explore some toy examples.
@@ -93,7 +93,9 @@ This is what parsers build.
 
 Compile pipeline
 
-read file |> parse |> convert to byte code
+read file  
+|> parse  
+|> convert to byte code
 
 ---
 
@@ -103,7 +105,10 @@ macros are functions that alter the AST during compile
 
 Compile pipeline
 
-read file |> parse |> expand macros |> convert to byte code
+read file  
+|> parse  
+|> expand macros  
+|> convert to byte code
 
 Note:
 
