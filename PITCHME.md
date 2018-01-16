@@ -71,6 +71,10 @@ In this context all that time and logging code is the important part, *not* boil
 
 how does that work?
 
+---
+
+First a little theory
+
 Note:
 First a little theory then we'll explore some toy examples.
 
