@@ -180,7 +180,8 @@ iex> a = 3
 5
 ```
 
-Note: To be more precise. `unquote` evaluates the expressions you pass in the context outside the `quote` block and returns the AST representation of that expression's return value.
+Note:
+To be more precise. `unquote` evaluates the expressions you pass in the context outside the `quote` block and returns the AST representation of that expression's return value.
 
 ----
 
