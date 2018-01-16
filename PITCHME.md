@@ -91,11 +91,13 @@ This is what parsers build.
 
 ---
 
-Compile pipeline
+compile pipeline
 
-read file  
-|> parse  
-|> convert to byte code
+```elixir
+read(source_file)
+|> parse()
+|> convert_to_byte_code()
+```
 
 ---
 
@@ -103,12 +105,14 @@ macros are functions that alter the AST during compile
 
 ---
 
-Compile pipeline
+compile pipeline
 
-read file  
-|> parse  
-|> expand macros  
-|> convert to byte code
+```elixir
+read(source_file)
+|> parse()
+|> expand_macros()
+|> convert_to_byte_code
+```
 
 Note:
 
@@ -116,10 +120,13 @@ Basically a hook provided by the compiler.
 
 ---
 
-the macro contract: the compiler passes in the original AST; the macro returns the AST to use in it's place
+the macro contract:
+
+the compiler passes in the original AST
+the macro returns the AST to use in it's place
 
 Note:
-Go wild! All of Elixir is available in macros.
+Go wild! All of Elixir is at your disposal.
 
 ---
 
